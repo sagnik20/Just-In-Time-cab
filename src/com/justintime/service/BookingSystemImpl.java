@@ -17,7 +17,7 @@ public class BookingSystemImpl implements BookingSystem{
 	}
 
 	@Override
-	public String requestCab() throws UnAvailableException {
+	public String requestCab() {
 		//invoked when employee raised a cab request
 		//send an email to department head and approved
 		
@@ -27,13 +27,24 @@ public class BookingSystemImpl implements BookingSystem{
 				return cab.getCabNo();
 			}
 			
-		throw new UnAvailableException("No Cab is Available");
+		try {
+			throw new UnAvailableException("No Cab is Available");
+		} catch (UnAvailableException e) {
+			// TODO Auto-generated catch block
+			return(e.toString());
+		}
 		
 	}
 
 	@Override
 	public Integer getNoOfAvailableCabs() {
-		return cabs.size();		
+		Integer count=0;
+		for(Cab cab:cabs) {
+			if(cab.getFreeOrBooked()==0) {
+				count++;
+			}
+		}
+		return count;
 	}
 	
 
