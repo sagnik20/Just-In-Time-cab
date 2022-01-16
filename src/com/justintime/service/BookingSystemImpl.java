@@ -39,7 +39,7 @@ public class BookingSystemImpl implements BookingSystem{
 			throw new UnAvailableException("No Cab is Available");
 		} catch (UnAvailableException e) {
 			// TODO Auto-generated catch block
-			return(e.toString());
+			return(e.getMessage());
 		}
 		
 	}
