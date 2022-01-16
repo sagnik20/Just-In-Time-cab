@@ -11,5 +11,10 @@ public class UnAvailableException extends Exception{
 		return "Currently No Cab is available for booking.\nPlease try again after few minutes.";
 	}
 	
+	@Override
+	public String getMessage() {
+		return "All cabs are booked";
+	}
+	
 
 }
