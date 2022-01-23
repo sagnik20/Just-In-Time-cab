@@ -1,6 +1,6 @@
 package com.justintime.client;
 
-import com.justintime.modal.Employee;
+import com.justintime.model.Employee;
 
 public class EmployeeImpl extends Employee{
 
@@ -8,10 +8,12 @@ public class EmployeeImpl extends Employee{
 		super(id, name, email, dept);
 		
 	}
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+	
+	void request() {
+		System.out.println("Do you want to request a cab?");
+		System.out.println("Press 1 to book");
 	}
+
+
 
 }
