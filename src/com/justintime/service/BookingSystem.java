@@ -1,12 +1,12 @@
 package com.justintime.service;
 
-import com.justintime.modal.Cab;
+import com.justintime.model.Cab;
 
-public interface BookingSystem {
+public interface BookingSystem{
 	
-	void addCab(Cab newCab);
-	String requestCab();
-	Integer getNoOfAvailableCabs();
+	void addCab(Cab newCab) throws Exception;
+	String requestCab() throws Exception;
+	Integer getNoOfAvailableCabs() throws Exception;
 	
 
 }
