@@ -2,10 +2,12 @@ package com.justintime.client;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.Scanner;
 
 import com.justintime.db.dbConnect;
 import com.justintime.model.Cab;
+import com.justintime.model.Employee;
 import com.justintime.service.BookingSystemImpl;
 
 public class Admin {
@@ -23,7 +25,11 @@ public class Admin {
 			Admin a = new Admin();
 			switch (ch) {
 			case 1:
-				a.addEmp();break;
+				try {
+					a.addEmp();
+				} catch (Exception e) {
+					System.out.println("An exception is generated!" +e);
+				}break;
 			/*
 			 * case 2: a.removeEmp(); break;
 			 */
@@ -31,7 +37,11 @@ public class Admin {
 				a.addCab();
 				break;
 			case 3:
-				a.checkRequest();
+				try {
+					a.checkRequest();
+				} catch (Exception e) {
+					System.out.println("An exception is generated!" +e);
+				}
 				break;
 			default:
 				System.out.println("Logging Out!");
@@ -40,16 +50,27 @@ public class Admin {
 		}
 	}
 	
-	void addEmp() {
+	void addEmp() throws Exception {
 		Connection con = dbConnect.getConnection();
 		PreparedStatement pt = con.prepareStatement("insert into employee values(?,?,?,?,?)");
-		pt.setString(1, );
-		pt.setString(2, );
+		Employee emp = this.getNewEmployee();
+		pt.setString(1, emp.getName());
+		pt.setString(2, emp.getEmail());
+		if(emp.getManager()==true)
+			pt.setInt(3, 1);
+		else
+			pt.setInt(3, 0);
+		pt.setInt(4, 1);
+		pt.setString(5, emp.getDept());
+		pt.setString(6, emp.getName()+"123");
+		pt.execute(); //insert
 		
 	}
 	
 	/*
 	 * void removeEmp() {
+	 * PreparedStatement pt = con.prepareStatement("update employee set active=0 where (id=?)");
+	 * 
 	 * 
 	 * }
 	 */
@@ -67,8 +88,50 @@ public class Admin {
 		
 	}
 	
-	void checkRequest() {
-		
+	void checkRequest() throws Exception{
+		Connection con = dbConnect.getConnection();
+		Scanner sc = new Scanner(System.in);
+		BookingSystemImpl bs =new BookingSystemImpl();
+		Integer cabNo;
+		System.out.println("All the manager approved requests are shown below one by one. \nPlease assign them a Cab.");
+		PreparedStatement pt = con.prepareStatement("select * from request where statusId=2");
+		ResultSet rs = pt.executeQuery();
+		while(rs.next()) {
+			System.out.println("Employee ID : " +rs.getInt(2) +" has requested an Cab with Request ID:"+rs.getInt(1)+"\nIts approved by his mamnager.");
+			System.out.println("Assign a Cab? y/n");
+			char m=sc.next().charAt(0);
+			if(m=='y') {
+				cabNo = bs.requestCab();
+				PreparedStatement pst = con.prepareStatement("insert into booking values(?,?)");
+				pst.setInt(1,cabNo);
+				pst.setInt(2, rs.getInt(2));
+				pst.execute(); //insert
+				System.out.println(cabNo+" assigned");
+				//update the result in to request table
+			}
+				
+		}
+		System.out.println("No nore Remaining");
+		return;
+	
+	}
+	
+	Employee getNewEmployee() {
+		Employee a;
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Enter the name of Employee");
+		String n = sc.nextLine();
+		System.out.println("Enter this employee Email ID");
+		String e = sc.nextLine();
+		System.out.println("Enter this his assigned department");
+		String d=sc.nextLine();
+		System.out.println("Is he a Manager? y/n");
+		char m=sc.next().charAt(0);
+		if(m=='y')
+			a = new Employee(1,n,e,true,d);
+		else
+			a = new Employee(1,n,e,d);
+		return a;
 	}
 
 

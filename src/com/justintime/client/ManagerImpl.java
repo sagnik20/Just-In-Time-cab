@@ -1,5 +1,11 @@
 package com.justintime.client;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.Scanner;
+
+import com.justintime.db.dbConnect;
 import com.justintime.model.Employee;
 
 public class ManagerImpl extends Employee{
@@ -8,8 +14,30 @@ public class ManagerImpl extends Employee{
 		super(id, name, email, manager, dept);
 	}
 	
-	void accept(){
-		
+	void accept() throws Exception{
+		Connection con = dbConnect.getConnection();
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Following Cab requests are pending!\nPlease approve or reject them.");
+		PreparedStatement pt = con.prepareStatement("select * from request where statusId=1");
+		ResultSet rs = pt.executeQuery();
+		while(rs.next()) {
+			System.out.println("Employee ID : " +rs.getInt(2) +" has requested an Cab with Request ID:"+rs.getInt(1));
+			System.out.println("Approve? y/n");
+			char m=sc.next().charAt(0);
+			if(m=='y') {
+				PreparedStatement pst = con.prepareStatement("update requests set statusId=2 where requestId=?");
+				pst.setInt(1, rs.getInt(1));
+				int a = pst.executeUpdate(); //update
+				System.out.println(a+" Row Affected! \nRequest Approved!");
+			}
+			else {
+				PreparedStatement pst = con.prepareStatement("update requests set statusId=3 where requestId=?");
+				pst.setInt(1, rs.getInt(1));
+				int a = pst.executeUpdate(); //update
+				System.out.println(a+" Row Affected! \nRequest Rejected!");
+			}
+		}
+		return;
 	}
 
 }

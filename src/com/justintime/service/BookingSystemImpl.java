@@ -22,33 +22,35 @@ public class BookingSystemImpl implements BookingSystem{
 		pst.setTime(2, newCab.getStartTiming());
 		pst.setInt(3, newCab.getFreeOrBooked());
 		pst.setTime(4, newCab.getEndTiming());
-		
+		pst.execute(); //insert
 		cabs.add(newCab);
 		
 	}
 
 	@Override
-	public String requestCab() throws Exception{
+	public Integer requestCab() throws Exception{
 		//invoked when employee raised a cab request
 		//send an email to department head and approved
 		if(cabs.isEmpty()) {
 			try {
 				throw new UnAvailableException("No Cab is Available");
 			} catch (UnAvailableException e) {
-				return(e.toString());
+				System.out.println(e.toString());
+				return -1;
 			}
 		}
 		
 		for(Cab cab:cabs) 
 			if(cab.getFreeOrBooked()==0) {
 				cab.setFreeOrBooked(1);
-				return cab.getCabNo()+" ";
+				return cab.getCabNo();
 			}
 			
 		try {
 			throw new UnAvailableException("No Cab is Available");
 		} catch (UnAvailableException e) {
-			return(e.getMessage());
+			System.out.println(e.getMessage());
+			return-1;
 		}
 		
 	}

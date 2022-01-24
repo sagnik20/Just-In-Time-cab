@@ -35,7 +35,11 @@ public class Login {
 					String email = rs.getString("email");
 					String dept = rs.getString("dept");
 					EmployeeImpl empi = new EmployeeImpl(id,name,email,dept);
-					empi.request();
+					try {
+						empi.request();
+					} catch (Exception e) {
+						System.out.println("Got an Exception. " +e);
+					}
 				}
 				else {
 					System.out.println("Wrong  Email and password");
@@ -54,7 +58,11 @@ public class Login {
 					String email = rst.getString("email");
 					String dept = rst.getString("dept");
 					ManagerImpl manage = new ManagerImpl(id,name,email,true,dept);
-					manage.accept();
+					try {
+						manage.accept();
+					} catch (Exception e) {
+						System.out.println("Got an Exception. " +e);
+					}
 				}
 				else {
 					System.out.println("Wrong  Email and Password");
