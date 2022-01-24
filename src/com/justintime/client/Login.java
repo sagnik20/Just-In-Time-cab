@@ -63,10 +63,26 @@ public class Login {
 			case 3:
 				Login admin = new Login();
 				admin.getEmailPass();
+//				PreparedStatement pt = con.prepareStatement("select * from employee where email=? and password=? and manager=0");
+//				pt.setString(1, admin.email);
+//				pt.setString(2, admin.password);
+//				ResultSet rts = pt.executeQuery();
+				if(admin.email == "admin1@admin" && admin.password == "admin") {
+					Admin empi = new Admin();
+					int a = empi.stat();
+				}
+				else {
+					System.out.println("Wrong  Email and password");
+				}
+				break;
+			default:
+				System.out.println("Sorry you entered a wrong choice!!");
+				System.out.println("Please try again!");
+				System.out.println("!!! QUITING !!!");
+				sc.close();	
+				System.exit(0);
 				
-			}
-			
-			sc.close();		
+			}	
 		}
 	}
 	void getEmailPass() {
@@ -75,6 +91,7 @@ public class Login {
 		this.email = sc.nextLine();
 		System.out.println("Enter your Password :");
 		this.password = sc.nextLine();
+		sc.close();	
 	}
 	
 
