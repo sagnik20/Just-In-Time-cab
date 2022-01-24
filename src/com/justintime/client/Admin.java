@@ -1,7 +1,10 @@
 package com.justintime.client;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.util.Scanner;
 
+import com.justintime.db.dbConnect;
 import com.justintime.model.Cab;
 import com.justintime.service.BookingSystemImpl;
 
@@ -38,6 +41,10 @@ public class Admin {
 	}
 	
 	void addEmp() {
+		Connection con = dbConnect.getConnection();
+		PreparedStatement pt = con.prepareStatement("insert into employee values(?,?,?,?,?)");
+		pt.setString(1, );
+		pt.setString(2, );
 		
 	}
 	
