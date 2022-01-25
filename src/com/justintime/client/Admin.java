@@ -102,12 +102,26 @@ public class Admin {
 			char m=sc.next().charAt(0);
 			if(m=='y') {
 				cabNo = bs.requestCab();
-				PreparedStatement pst = con.prepareStatement("insert into booking values(?,?)");
-				pst.setInt(1,cabNo);
-				pst.setInt(2, rs.getInt(2));
-				pst.execute(); //insert
-				System.out.println(cabNo+" assigned");
-				//update the result in to request table
+				if(cabNo>1000) {
+					PreparedStatement pst = con.prepareStatement("insert into booking values(?,?)");
+					pst.setInt(1,cabNo);
+					pst.setInt(2, rs.getInt(2));
+					pst.execute(); //insert
+					System.out.println(cabNo+" assigned");
+					//update the result in to request table
+					pst = con.prepareStatement("select bookingId from booking where cabNo=? and employeeId=? order by bookingId desc limit 1");
+					pst.setInt(1, cabNo);
+					pst.setInt(2, rs.getInt(2));
+					ResultSet rs1 = pst.executeQuery();
+					if(rs1.next()) {
+						pst = con.prepareStatement("update requests set statusId=4,bookingId=? where requestId=?");
+						pst.setInt(1, rs1.getInt(1));
+						pst.setInt(2, rs.getInt(1));
+						int a = pst.executeUpdate(); //update
+					}
+				}
+				else
+					System.out.println("Exception Occoured!");
 			}
 				
 		}

@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import com.justintime.dao.BookingImpl;
 import com.justintime.db.dbConnect;
 import com.justintime.exception.UnAvailableException;
 import com.justintime.model.Cab;
@@ -17,20 +18,21 @@ public class BookingSystemImpl implements BookingSystem{
 	@Override
 	public void addCab(Cab newCab) throws Exception{
 		Connection con=dbConnect.getConnection();
-		PreparedStatement pst = con.prepareStatement("insert into cab values (?,?,?,?);");
+		PreparedStatement pst = con.prepareStatement("insert into cab(cabNo,freeOrBooked) values (?,?);");
 		pst.setInt(1, newCab.getCabNo());
-		pst.setTime(2, newCab.getStartTiming());
-		pst.setInt(3, newCab.getFreeOrBooked());
-		pst.setTime(4, newCab.getEndTiming());
+		pst.setInt(2, newCab.getFreeOrBooked());
 		pst.execute(); //insert
+		
+		BookingImpl bi = new BookingImpl();
+		cabs = bi.copycabs();
 		cabs.add(newCab);
 		
 	}
 
 	@Override
 	public Integer requestCab() throws Exception{
-		//invoked when employee raised a cab request
-		//send an email to department head and approved
+		BookingImpl bi = new BookingImpl();
+		cabs = bi.copycabs();
 		if(cabs.isEmpty()) {
 			try {
 				throw new UnAvailableException("No Cab is Available");
@@ -57,6 +59,8 @@ public class BookingSystemImpl implements BookingSystem{
 
 	@Override
 	public Integer getNoOfAvailableCabs() throws Exception{
+		BookingImpl bi = new BookingImpl();
+		cabs = bi.copycabs();
 		Integer count=0;
 		for(Cab cab:cabs) {
 			if(cab.getFreeOrBooked()==0) {
@@ -65,6 +69,8 @@ public class BookingSystemImpl implements BookingSystem{
 		}
 		return count;
 	}
+	
+
 	
 
 }

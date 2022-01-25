@@ -7,15 +7,18 @@ import java.time.format.DateTimeFormatter;
 
 public class Cab {
 	private final Integer cabNo;
-	private String sTiming;
+	private LocalTime sTiming;
 	private LocalTime eTiming;
 	private Integer freeOrBooked;//0 means available, 1 means Booked
 	
 	public Cab(Integer cnum) {
 		this.cabNo = cnum;
-		LocalTime now1 = LocalTime.now();
-		this.sTiming = now1.format(DateTimeFormatter.ofPattern("HH:mm"));
 		this.freeOrBooked = 0;
+		
+	}
+	public Cab(Integer cnum,Integer fOB) {
+		this.cabNo = cnum;
+		this.freeOrBooked = fOB;
 		
 	}
 	
@@ -32,7 +35,7 @@ public class Cab {
 		return cabNo;
 	}
 
-	public String getStartTiming() {
+	public LocalTime getStartTiming() {
 		return sTiming;
 	}
 
@@ -40,7 +43,11 @@ public class Cab {
 		return eTiming;
 	}
 
-	public void seteTiming(LocalTime eTiming) {
+	public void setStartTiming(LocalTime sTiming) {
+		this.sTiming = sTiming;
+	}
+	
+	public void setEndTiming(LocalTime eTiming) {
 		this.eTiming = eTiming;
 	}
 
