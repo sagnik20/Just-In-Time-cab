@@ -3,12 +3,14 @@ package com.justintime.client;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.Scanner;
+import java.util.*;
+import java.util.logging.Logger;
 
 import com.justintime.db.dbConnect;
 import com.justintime.model.Employee;
 
 public class EmployeeImpl extends Employee{
+	private static final Logger logger = Logger.getLogger("EmployeeImpl.class");
 
 	public EmployeeImpl(Integer id, String name, String email, String dept) {
 		super(id, name, email, dept);
@@ -18,24 +20,38 @@ public class EmployeeImpl extends Employee{
 	void request() throws Exception {
 		Scanner sc = new Scanner(System.in);
 		Connection con = dbConnect.getConnection();
+		logger.info("Logged into as Employee");
+		PreparedStatement pst;
+		ResultSet rs;
+		int ch;
 		while(true) {
 			System.out.println("Do you want to request a cab?");
 			System.out.println("Press 1 to Request a Cab");
 			System.out.println("Press 2 to view booking history");
 			System.out.println("Press 3 to view last boooking status");
 			System.out.println("Press anything else to Log Out!");
-			PreparedStatement pst;
-			ResultSet rs;
-			Integer ch = sc.nextInt();
+			//try {
+			ch=sc.nextInt();
+				 
+			//} catch (Exception e) {
+			//	e.printStackTrace();
+			//}
+			//System.out.println("Reached here!");
 			switch(ch) {
 			case 1:
+			{
+				logger.info("Requesting a cab");
 				pst = con.prepareStatement("insert into request (employeeId,statusId) values(?,?)");
 				pst.setInt(1,this.getId());
 				pst.setInt(2, 1);
 				pst.execute(); //insert
 				System.out.println("A cab is requested");
+				logger.info("A cab is requested");
 				break;
+			}
 			case 2:
+			{
+				logger.info("Viewing all booking history");
 				pst = con.prepareStatement("select * from request where employeeId=?");
 				pst.setInt(1,this.getId());
 				rs = pst.executeQuery();
@@ -50,8 +66,12 @@ public class EmployeeImpl extends Employee{
 					else
 						System.out.println("Request ID: "+rs.getInt(1)+" is Booked with Booking ID: "+rs.getInt(3));
 				}
+				logger.info("All booking history is printed");
 				break;
+			}
 			case 3:
+			{
+				logger.info("Viewing last booking status");
 				pst = con.prepareStatement("select statusId,bookingId from request where employeeId=? order by requestId desc limit 1");
 				pst.setInt(1,this.getId());
 				rs = pst.executeQuery();
@@ -66,9 +86,16 @@ public class EmployeeImpl extends Employee{
 					else
 						System.out.println("Booked\nBooking ID:"+rs.getInt(2));
 				}
+				else
+					System.out.println("No cab is ever requested");
+				logger.info("Printed last booking history");
 				break;
+			}
 			default:
+			{
+				logger.info("Log out from Employee class");
 				return;
+			}
 			}
 		}
 	}

@@ -52,7 +52,7 @@ public class Admin {
 	
 	void addEmp() throws Exception {
 		Connection con = dbConnect.getConnection();
-		PreparedStatement pt = con.prepareStatement("insert into employee values(?,?,?,?,?)");
+		PreparedStatement pt = con.prepareStatement("insert into employee(name,email,manager,active,dept,password) values(?,?,?,?,?,?)");
 		Employee emp = this.getNewEmployee();
 		pt.setString(1, emp.getName());
 		pt.setString(2, emp.getEmail());
@@ -103,7 +103,7 @@ public class Admin {
 			if(m=='y') {
 				cabNo = bs.requestCab();
 				if(cabNo>1000) {
-					PreparedStatement pst = con.prepareStatement("insert into booking values(?,?)");
+					PreparedStatement pst = con.prepareStatement("insert into booking (cabNo,employeeId) values(?,?)");
 					pst.setInt(1,cabNo);
 					pst.setInt(2, rs.getInt(2));
 					pst.execute(); //insert
@@ -114,7 +114,7 @@ public class Admin {
 					pst.setInt(2, rs.getInt(2));
 					ResultSet rs1 = pst.executeQuery();
 					if(rs1.next()) {
-						pst = con.prepareStatement("update requests set statusId=4,bookingId=? where requestId=?");
+						pst = con.prepareStatement("update request set statusId=4,bookingId=? where requestId=?");
 						pst.setInt(1, rs1.getInt(1));
 						pst.setInt(2, rs.getInt(1));
 						int a = pst.executeUpdate(); //update
