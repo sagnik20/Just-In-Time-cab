@@ -42,5 +42,5 @@ To-do list:
 
 ## License
 
-This project uses the following license: [<license_name>](<link>).
+This project uses the following license: [MIT-License](<https://github.com/sagnik20/Just-In-Time-cab/blob/main/LICENSE>).
 
