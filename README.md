@@ -6,9 +6,11 @@ Here goes your awesome project description!
 
 ## Technologies Used
 
-* Tech 1 - version 1.0
-* Tech 2 - version 2.0
-* Tech 3 - version 3.0
+* Java - version 1.8
+* JDBC - version 4.3
+* MySQL - version 8.0
+* Log 4j - version 1.2.17
+* JUnit - version 4
 
 ## Features
 
@@ -36,9 +38,6 @@ To-do list:
 
 > Here, you instruct other people on how to use your project after they’ve installed it. This would also be a good place to include screenshots of your project in action.
 
-## Contributors
-
-> Here list the people who have contributed to this project. (ignore this section, if its a solo project)
 
 ## License
 
