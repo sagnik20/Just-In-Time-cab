@@ -1,5 +1,12 @@
 # Just-In-Time-cab
 
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/sagnik20/Just-In-Time-cab/graphs/commit-activity) 
+[![Ask Me Anything !](https://img.shields.io/badge/Ask%20me-anything-1abc9c.svg)](https://GitHub.com/sagnik20/ama) 
+[![GitHub issues](https://img.shields.io/github/issues/sagnik20/Just-In-Time-cab)](https://github.com/sagnik20/Just-In-Time-cab/issues)
+[![GitHub forks](https://img.shields.io/github/forks/sagnik20/Just-In-Time-cab?style=social)](https://github.com/sagnik20/Just-In-Time-cab/network) 
+[![GitHub stars](https://img.shields.io/github/stars/sagnik20/Just-In-Time-cab?style=social)](https://github.com/sagnik20/Just-In-Time-cab/stargazers) 
+[![Open Source Love svg1](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
+
 ## Project Description
 
 Here goes your awesome project description!
