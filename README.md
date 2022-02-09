@@ -9,7 +9,7 @@
 
 ## Project Description
 
-Here goes your awesome project description!
+An Terminal Based Cab Booking System Implementation
 
 ## Technologies Used
 
