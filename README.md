@@ -1,4 +1,5 @@
 # Just-In-Time-cab
+##### A Cab Booking Console Application
 
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/sagnik20/Just-In-Time-cab/graphs/commit-activity) 
 [![Ask Me Anything !](https://img.shields.io/badge/Ask%20me-anything-1abc9c.svg)](https://GitHub.com/sagnik20/ama) 
@@ -9,7 +10,9 @@
 
 ## Project Description
 
-An Terminal Based Cab Booking System Implementation
+A Cab Booking Console Application
+
+I was tasked with creating an Cab Booking system for a small company/group. This program will allow employees to book a cab. When manager approve/deny the request they can optionally leave a message. An employee can login to request a Cab. Respective department Managers can view these requests and approve or deny them. Admin can view all booking details and assign a cab to them when manager accepted the request. Also admin can add,update and delete a cab as well as employees data. 
 
 ## Technologies Used
 
@@ -40,10 +43,6 @@ To-do list:
 
 - All the `code` required to get started
 - Images of what it should look like
-
-## Usage
-
-> Here, you instruct other people on how to use your project after they’ve installed it. This would also be a good place to include screenshots of your project in action.
 
 
 ## License
